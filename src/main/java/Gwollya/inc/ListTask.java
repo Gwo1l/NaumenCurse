@@ -5,12 +5,13 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
-public class WorkingWithList {
+public class ListTask {
     private static List<Double> list;
     private static int n;
 
-    public static void main(String[] args) {
+    public static void start() {
         Scanner scanner = new Scanner(System.in);
+        System.out.print("Count elements: ");
         n = scanner.nextInt();
         list = fillList(n);
 

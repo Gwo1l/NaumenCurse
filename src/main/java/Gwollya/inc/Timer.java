@@ -11,8 +11,9 @@ public class Timer implements Task {
         this.seconds = seconds;
     }
 
-    public static void main(String[] args) {
+    public static void startTimer() {
         Scanner scanner = new Scanner(System.in);
+        System.out.print("Count seconds: ");
         Timer timer = new Timer(scanner.nextInt());
         timer.start();
         String stopWord = scanner.next();
@@ -33,6 +34,7 @@ public class Timer implements Task {
                     throw new RuntimeException(e);
                 }
             }
+            System.out.println("Timer stopped");
         }).start();
     }
 

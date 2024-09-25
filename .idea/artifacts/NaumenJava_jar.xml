@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="NaumenJava:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/NaumenJava_jar</output-path>
+    <root id="archive" name="NaumenJava.jar">
+      <element id="module-output" name="NaumenJava" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/json/json/20220320/json-20220320.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

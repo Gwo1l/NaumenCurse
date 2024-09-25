@@ -10,7 +10,7 @@ public class Employee {
     private String department;
     private Double salary;
 
-    public static void main(String[] args) {
+    public static void start() {
         Employee empl1 = new Employee("Солодушкин Святослав Игоревич", 80,
                 "Протоколы Интернет", 15000d);
         Employee empl2 = new Employee("Клепинин Александр Владимирович", 48,

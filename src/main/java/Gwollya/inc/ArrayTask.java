@@ -3,12 +3,13 @@ package Gwollya.inc;
 import java.util.Random;
 import java.util.Scanner;
 
-public class WorkingWithArray {
+public class ArrayTask {
     private static int[] array;
     private static int n;
 
-    public static void main(String[] args) {
+    public static void start() {
         Scanner scanner = new Scanner(System.in);
+        System.out.print("Count elements: ");
         n = scanner.nextInt();
         array = fillArray(n);
 

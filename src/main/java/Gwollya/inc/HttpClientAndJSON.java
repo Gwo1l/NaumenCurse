@@ -10,7 +10,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class HttpClientAndJSON {
-    public static void main(String[] args) throws IOException, InterruptedException {
+    public static void start() throws IOException, InterruptedException {
         String apiUrl = "https://httpbin.org/ip";
 
         try (HttpClient client = HttpClient.newHttpClient()) {
