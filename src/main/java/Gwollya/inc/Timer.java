@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class Timer implements Task {
     private int seconds;
-    private static boolean isStopped = false;
+    private boolean isStopped = false;
 
     public Timer(int seconds) {
         this.seconds = seconds;

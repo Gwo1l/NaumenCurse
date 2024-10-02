@@ -10,12 +10,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class HttpClientAndJSON {
+    private static final String API_URL = "https://httpbin.org/ip";
     public static void start() throws IOException, InterruptedException {
-        String apiUrl = "https://httpbin.org/ip";
 
         try (HttpClient client = HttpClient.newHttpClient()) {
             HttpRequest request = HttpRequest.newBuilder()
-                    .uri(URI.create(apiUrl))
+                    .uri(URI.create(API_URL))
                     .build();
 
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());

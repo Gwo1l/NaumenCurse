@@ -30,7 +30,7 @@ public class Employee {
 
         List<Employee> sortedEmployeesList = employeesList.stream()
                 .filter(employee -> employee.age > 30)
-                .collect(Collectors.toList());
+                .toList();
         sortedEmployeesList.forEach(el -> System.out.println(el.fullName));
     }
 
