@@ -1,4 +1,4 @@
-package ru.Robert.NauJava;
+package ru.Robert.NauJava.ConsoleInput;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

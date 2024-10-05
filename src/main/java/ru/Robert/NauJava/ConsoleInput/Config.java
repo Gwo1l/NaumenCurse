@@ -1,4 +1,4 @@
-package ru.Robert.NauJava;
+package ru.Robert.NauJava.ConsoleInput;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanDefinition;
@@ -9,9 +9,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
 import ru.Robert.NauJava.Entities.Contact;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Scanner;
 
 @Configuration
