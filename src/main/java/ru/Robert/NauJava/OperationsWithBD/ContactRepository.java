@@ -9,16 +9,18 @@ import java.util.*;
 @Component
 public class ContactRepository implements CrudRepository<Contact, Long> {
     private final HashMap<Long, Contact> contactContainer;
+    private Long idAutoIncrement;
 
     @Autowired
     public ContactRepository(HashMap<Long, Contact> contactContainer) {
         this.contactContainer = contactContainer;
+        idAutoIncrement = 1L;
     }
 
     @Override
     public void create(Contact entity) {
-        Long maxId = Collections.max(contactContainer.keySet());
-        contactContainer.put(maxId, entity);
+        contactContainer.put(idAutoIncrement,entity);
+        idAutoIncrement++;
     }
 
     @Override
@@ -35,4 +37,5 @@ public class ContactRepository implements CrudRepository<Contact, Long> {
     public void delete(Long id) {
         contactContainer.remove(id);
     }
+
 }

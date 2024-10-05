@@ -14,16 +14,16 @@ public class ContactServiceImpl implements ContactService{
     }
 
     @Override
-    public void createContact(Long id, String login,String number,
+    public void createContact(String login,String number,
                               String country, String gender) {
 
         Contact contact = new Contact();
-        contact.setId(id);
         contact.setName(login);
         contact.setPhoneNumber(number);
         contact.setCountry(country);
         contact.setGender(gender);
 
+        contactRepository.create(contact);
     }
 
     @Override
