@@ -14,8 +14,7 @@ public class ContactServiceImpl implements ContactService{
     }
 
     @Override
-    public void createContact(String login,String number,
-                              String country, String gender) {
+    public void createContact(String login, String number, String country, String gender) {
 
         Contact contact = new Contact();
         contact.setName(login);
