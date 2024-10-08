@@ -3,7 +3,7 @@ package ru.Robert.NauJava.BusinessLogic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.Robert.NauJava.Entities.Contact;
-import ru.Robert.NauJava.OperationsWithBD.ContactRepository;
+import ru.Robert.NauJava.OperationsWithDB.ContactRepository;
 
 @Service
 public class ContactServiceImpl implements ContactService{

@@ -1,4 +1,4 @@
-package ru.Robert.NauJava.OperationsWithBD;
+package ru.Robert.NauJava.OperationsWithDB;
 
 public interface CrudRepository<T, ID>
 {

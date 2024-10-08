@@ -1,25 +1,17 @@
 package ru.Robert.NauJava.ConsoleInput;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.context.annotation.Scope;
 import ru.Robert.NauJava.Entities.Contact;
 
 import java.util.HashMap;
 import java.util.Scanner;
 
 @Configuration
-public class Config {
-    @Bean
-    @Scope(value = BeanDefinition.SCOPE_SINGLETON)
-    @Lazy
-    public HashMap<Long, Contact> contactContainer() {
-        return new HashMap<>();
-    }
+public class ConfigInput {
 
     @Autowired
     @Lazy
@@ -42,7 +34,7 @@ public class Config {
                         System.out.println("Выход из программы...");
                         break;
                     }
-// Обработка команды
+
                     commandProcessor.processCommand(input);
                 }
             }

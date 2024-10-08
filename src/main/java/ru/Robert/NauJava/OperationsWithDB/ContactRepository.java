@@ -1,4 +1,4 @@
-package ru.Robert.NauJava.OperationsWithBD;
+package ru.Robert.NauJava.OperationsWithDB;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -19,6 +19,9 @@ public class ContactRepository implements CrudRepository<Contact, Long> {
 
     @Override
     public void create(Contact entity) {
+        if (contactContainer.isEmpty()) {
+            idAutoIncrement = 1L;
+        }
         contactContainer.put(idAutoIncrement,entity);
         idAutoIncrement++;
     }
