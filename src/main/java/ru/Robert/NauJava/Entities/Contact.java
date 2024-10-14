@@ -1,12 +1,28 @@
 package ru.Robert.NauJava.Entities;
 
+import jakarta.persistence.*;
+
+import java.util.HashSet;
+import java.util.Set;
+
+@Entity
+@Table(name = "contacts")
 public class Contact {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private String phoneNumber;
-    private String country;
+    @OneToMany(mappedBy = "contact", cascade = CascadeType.ALL)
+    private Set<PhoneNumber> phoneNumbers;
+    @ManyToOne
+    @JoinColumn(name = "country_id")
+    private Country country;
     private String gender;
-
+    @OneToOne(mappedBy = "contact")
+    private Note note;
+    @ManyToOne
+    @JoinColumn(name = "address_id")
+    private Address address;
 
     public Long getId() {
         return id;
@@ -24,19 +40,19 @@ public class Contact {
         this.name = name;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public Set<PhoneNumber> getPhoneNumbers() {
+        return phoneNumbers;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
+    public void setPhoneNumbers(Set<PhoneNumber> phoneNumbers) {
+        this.phoneNumbers = phoneNumbers;
     }
 
-    public String getCountry() {
+    public Country getCountry() {
         return country;
     }
 
-    public void setCountry(String country) {
+    public void setCountry(Country country) {
         this.country = country;
     }
 
@@ -48,4 +64,19 @@ public class Contact {
         this.gender = gender;
     }
 
+    public Note getNote() {
+        return note;
+    }
+
+    public void setNote(Note note) {
+        this.note = note;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
 }
