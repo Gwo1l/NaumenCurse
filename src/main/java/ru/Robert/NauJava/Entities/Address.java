@@ -1,8 +1,8 @@
 package ru.Robert.NauJava.Entities;
 
 import jakarta.persistence.*;
-import org.springframework.data.annotation.Id;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -11,14 +11,16 @@ public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    @Column
     private String street;
+    @Column
     private String city;
+    @Column
     private Integer houseNumber;
 
 
     @OneToMany(mappedBy = "address")
-    private Set<Contact> contacts;
+    private Set<Contact> contacts = new HashSet<>();
 
     @ManyToOne
     @JoinColumn(name = "country_id")

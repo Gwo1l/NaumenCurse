@@ -11,9 +11,9 @@ import java.util.List;
 public interface ContactRepository extends CrudRepository<Contact, Long> {
     List<Contact> findByNameAndIdBetween(String name, Long minId, Long maxId);
 
-    @Query("SELECT c FROM Contact c WHERE c.country = :country")
+    @Query("SELECT c FROM Contact c WHERE c.country.name = :country")
     List<Contact> findByCountry(@Param("country") String country);
 
-    @Query("FROM Contact WHERE note.text = :note")
+    @Query("SELECT c FROM Contact c WHERE c.note.text = :note")
     List<Contact> findByNote(@Param("note") String note);
 }

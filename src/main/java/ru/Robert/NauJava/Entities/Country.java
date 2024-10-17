@@ -1,9 +1,9 @@
 package ru.Robert.NauJava.Entities;
 
 import jakarta.persistence.*;
-import org.springframework.data.annotation.Id;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -17,11 +17,19 @@ public class Country {
     private String name;
     private String code;
 
-    @OneToMany(mappedBy = "country")
-    private Set<Contact> contacts;
+    public Country(Long id, String name, String code) {
+        this.id = id;
+        this.name = name;
+        this.code = code;
+    }
+
+    public Country() {}
 
     @OneToMany(mappedBy = "country")
-    private Set<Address> addresses;
+    private Set<Contact> contacts = new HashSet<>();
+
+    @OneToMany(mappedBy = "country")
+    private Set<Address> addresses = new HashSet<>();
 
     public Long getId() {
         return id;

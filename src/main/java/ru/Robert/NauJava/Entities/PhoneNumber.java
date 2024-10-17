@@ -1,7 +1,6 @@
 package ru.Robert.NauJava.Entities;
 
 import jakarta.persistence.*;
-import org.springframework.data.annotation.Id;
 
 @Entity
 @Table(name = "phoneNumbers")

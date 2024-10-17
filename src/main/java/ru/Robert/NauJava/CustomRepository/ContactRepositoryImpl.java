@@ -38,7 +38,7 @@ public class ContactRepositoryImpl implements ContactRepositoryCustom {
         CriteriaQuery<Contact> criteriaQuery = criteriaBuilder.createQuery(Contact.class);
         Root<Contact> contactRoot = criteriaQuery.from(Contact.class);
 
-        Predicate countryPredicate = criteriaBuilder.equal(contactRoot.get("country"), country);
+        Predicate countryPredicate = criteriaBuilder.equal(contactRoot.get("country").get("name"), country);
 
         criteriaQuery.select(contactRoot).where(countryPredicate);
         return entityManager.createQuery(criteriaQuery).getResultList();

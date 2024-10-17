@@ -13,12 +13,13 @@ public class Contact {
     private Long id;
     private String name;
     @OneToMany(mappedBy = "contact", cascade = CascadeType.ALL)
-    private Set<PhoneNumber> phoneNumbers;
+    private Set<PhoneNumber> phoneNumbers = new HashSet<>();
     @ManyToOne
     @JoinColumn(name = "country_id")
     private Country country;
     private String gender;
-    @OneToOne(mappedBy = "contact")
+    @ManyToOne
+    @JoinColumn(name = "note_id")
     private Note note;
     @ManyToOne
     @JoinColumn(name = "address_id")

@@ -1,9 +1,10 @@
 package ru.Robert.NauJava.Entities;
 
 import jakarta.persistence.*;
-import org.springframework.data.annotation.Id;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "notes")
@@ -14,9 +15,15 @@ public class Note {
 
     private String text;
     private LocalDateTime creationDate;
-    @OneToOne
-    @JoinColumn(name = "contact_id")
-    private Contact contact;
+    @OneToMany(mappedBy = "note", cascade = CascadeType.ALL)
+    private Set<Contact> contacts = new HashSet<>();
+
+    public Note(LocalDateTime creationDate, String text) {
+        this.creationDate = creationDate;
+        this.text = text;
+    }
+
+    public Note() {}
 
     public Long getId() {
         return id;
@@ -43,10 +50,8 @@ public class Note {
     }
 
     public Contact getContact() {
-        return contact;
+        return null;
     }
 
-    public void setContact(Contact contact) {
-        this.contact = contact;
-    }
+
 }
