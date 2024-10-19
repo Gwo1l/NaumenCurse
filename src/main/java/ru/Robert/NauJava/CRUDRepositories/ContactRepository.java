@@ -14,6 +14,6 @@ public interface ContactRepository extends CrudRepository<Contact, Long> {
     @Query("SELECT c FROM Contact c WHERE c.country.name = :country")
     List<Contact> findByCountry(@Param("country") String country);
 
-    @Query("SELECT c FROM Contact c WHERE c.note.text = :note")
-    List<Contact> findByNote(@Param("note") String note);
+    @Query("SELECT c FROM Contact c WHERE c.note = :note")
+    List<Contact> findByNote(@Param("note") Note note);
 }

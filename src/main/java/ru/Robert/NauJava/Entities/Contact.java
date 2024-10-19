@@ -18,7 +18,7 @@ public class Contact {
     @JoinColumn(name = "country_id")
     private Country country;
     private String gender;
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "note_id")
     private Note note;
     @ManyToOne

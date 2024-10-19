@@ -10,6 +10,9 @@ import ru.Robert.NauJava.Entities.Note;
 public interface NoteRepository extends CrudRepository<Note, Long> {
     @Modifying
     @Transactional
-    @Query("DELETE FROM Note n WHERE n.text = :noteText")
-    void deleteByText(@Param("noteText") String noteText);
+    @Query("DELETE FROM Note n WHERE n.id = :id")
+    void deleteById(@Param("id") Long id);
+
+    @Query("SELECT n FROM Note n WHERE n.text = :text")
+    Note findByText(@Param("text") String text);
 }

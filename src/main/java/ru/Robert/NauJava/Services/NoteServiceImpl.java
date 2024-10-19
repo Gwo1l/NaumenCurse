@@ -32,12 +32,13 @@ public class NoteServiceImpl implements NoteService {
         TransactionStatus status = transactionManager.getTransaction(new DefaultTransactionDefinition());
         try
         {
-            List<Contact> contacts = contactRepository.findByNote(noteText);
+            Note note = noteRepository.findByText(noteText);
+            List<Contact> contacts = contactRepository.findByNote(note);
             for (Contact contact : contacts)
             {
                 contactRepository.delete(contact);
             }
-            noteRepository.deleteByText(noteText);
+            noteRepository.deleteAll();
             transactionManager.commit(status);
         }
         catch (DataAccessException ex)

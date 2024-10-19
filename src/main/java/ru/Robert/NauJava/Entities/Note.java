@@ -15,8 +15,8 @@ public class Note {
 
     private String text;
     private LocalDateTime creationDate;
-    @OneToMany(mappedBy = "note", cascade = CascadeType.ALL)
-    private Set<Contact> contacts = new HashSet<>();
+    @OneToOne(mappedBy = "note", cascade = CascadeType.ALL)
+    private Contact contact;
 
     public Note(LocalDateTime creationDate, String text) {
         this.creationDate = creationDate;

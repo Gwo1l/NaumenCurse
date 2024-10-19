@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 import ru.Robert.NauJava.CRUDRepositories.ContactRepository;
 import ru.Robert.NauJava.CRUDRepositories.NoteRepository;
 import ru.Robert.NauJava.Entities.Contact;
@@ -33,6 +34,8 @@ public class TransactionTest {
     }
 
     @Test
+    @Transactional
+    @Rollback
     public void testDeleteNote() {
         String contactName = UUID.randomUUID().toString();
         Contact contact = createContact(1L, contactName);
