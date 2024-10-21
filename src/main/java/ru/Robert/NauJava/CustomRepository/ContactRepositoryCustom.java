@@ -6,6 +6,6 @@ import ru.Robert.NauJava.Entities.Contact;
 import java.util.List;
 
 public interface ContactRepositoryCustom {
-    List<Contact> findByNameAndIdBetween(String name, Long minId, Long maxId);
+    List<Contact> findByName(String name);
     List<Contact> findByCountry(String country);
 }

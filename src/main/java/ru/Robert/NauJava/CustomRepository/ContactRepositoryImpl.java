@@ -19,16 +19,14 @@ public class ContactRepositoryImpl implements ContactRepositoryCustom {
         this.entityManager = entityManager;
     }
     @Override
-    public List<Contact> findByNameAndIdBetween(String name, Long minId, Long maxId) {
+    public List<Contact> findByName(String name) {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Contact> criteriaQuery = criteriaBuilder.createQuery(Contact.class);
         Root<Contact> contactRoot = criteriaQuery.from(Contact.class);
 
         Predicate namePredicate = criteriaBuilder.equal(contactRoot.get("name"), name);
-        Predicate idPredicate = criteriaBuilder.between(contactRoot.get("id"), minId, maxId);
-        Predicate andPredicate = criteriaBuilder.and(namePredicate, idPredicate);
 
-        criteriaQuery.select(contactRoot).where(andPredicate);
+        criteriaQuery.select(contactRoot).where(namePredicate);
         return entityManager.createQuery(criteriaQuery).getResultList();
     }
 

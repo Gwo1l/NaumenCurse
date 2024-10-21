@@ -1,6 +1,8 @@
 package ru.Robert.NauJava.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import org.springframework.context.annotation.Lazy;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -11,14 +13,13 @@ import java.util.Set;
 @Table(name = "countries")
 public class Country {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String name;
     private String code;
 
-    public Country(Long id, String name, String code) {
-        this.id = id;
+    public Country(String name, String code) {
         this.name = name;
         this.code = code;
     }
@@ -26,6 +27,7 @@ public class Country {
     public Country() {}
 
     @OneToMany(mappedBy = "country")
+    @JsonIgnore
     private Set<Contact> contacts = new HashSet<>();
 
     @OneToMany(mappedBy = "country")

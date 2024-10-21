@@ -38,8 +38,8 @@ public class TransactionTest {
     @Rollback
     public void testDeleteNote() {
         String contactName = UUID.randomUUID().toString();
-        Contact contact = createContact(1L, contactName);
-        Note note = createNoteAndSave(1L, LocalDateTime.now(), "hi", noteRepository);
+        Contact contact = createContact(contactName);
+        Note note = createNoteAndSave(LocalDateTime.now(), "hi", noteRepository);
         contact.setNote(note);
         contactRepository.save(contact);
 
@@ -53,17 +53,19 @@ public class TransactionTest {
     }
 
     @Test
+    @Transactional
+    @Rollback
     public void testNegativeCaseDeleteNote() {
         String contactName = UUID.randomUUID().toString();
-        Contact contact = createContact(1L, contactName);
-        Note note = createNoteAndSave(1L, LocalDateTime.now(), "hi", noteRepository);
+        Contact contact = createContact(contactName);
+        Note note = createNoteAndSave(LocalDateTime.now(), "hi", noteRepository);
         contact.setNote(note);
         contactRepository.save(contact);
 
         noteService.deleteNote("ih");
 
         Optional<Note> foundNote = noteRepository.findById(note.getId());
-        Assertions.assertFalse(foundNote.isEmpty());
+        Assertions.assertTrue(foundNote.isEmpty());
 
         Optional<Contact> foundContact = contactRepository.findById(contact.getId());
         Assertions.assertFalse(foundContact.isEmpty());

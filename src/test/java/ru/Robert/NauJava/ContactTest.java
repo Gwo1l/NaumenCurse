@@ -1,9 +1,11 @@
 package ru.Robert.NauJava;
 
+import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 import ru.Robert.NauJava.CRUDRepositories.ContactRepository;
 import ru.Robert.NauJava.CRUDRepositories.CountryRepository;
 import ru.Robert.NauJava.CRUDRepositories.NoteRepository;
@@ -37,23 +39,15 @@ public class ContactTest {
     }
 
     @Test
-    public void testFindByNameAndIdBetween() {
-        String contactName1 = UUID.randomUUID().toString();
+    @Transactional
+    @Rollback
+    public void testFindByName() {
         String contactNameMain = UUID.randomUUID().toString();
-        String contactName3 = UUID.randomUUID().toString();
-        Long minId = 1L;
-        Long maxID = 3L;
 
-        Contact contact1 = createContact(1L, contactName1);
-        contactRepository.save(contact1);
-
-        Contact contactMain = createContact(2L, contactNameMain);
+        Contact contactMain = createContact(contactNameMain);
         contactRepository.save(contactMain);
 
-        Contact contact3 = createContact(3L, contactName3);
-        contactRepository.save(contact3);
-
-        Contact foundContact = contactRepository.findByNameAndIdBetween(contactNameMain, minId, maxID).getFirst();
+        Contact foundContact = contactRepository.findByName(contactNameMain).getFirst();
 
         Assertions.assertNotNull(foundContact);
         Assertions.assertEquals(contactMain.getId(), foundContact.getId());
@@ -61,10 +55,12 @@ public class ContactTest {
     }
 
     @Test
+    @Transactional
+    @Rollback
     public void testFindByCountry() {
         String contactName = UUID.randomUUID().toString();
-        Contact contact = createContact(1L, contactName);
-        Country countryRussia = createCountryAndSave(1L, "Russia", "+7", countryRepository);
+        Contact contact = createContact(contactName);
+        Country countryRussia = createCountryAndSave( "Russia", "+7", countryRepository);
         contact.setCountry(countryRussia);
         contactRepository.save(contact);
 
@@ -76,24 +72,23 @@ public class ContactTest {
     }
 
     @Test
-    public void testCriteriaAPIFindByNameAndIdBetween() {
+    @Transactional
+    @Rollback
+    public void testCriteriaAPIFindByName() {
         String contactName1 = UUID.randomUUID().toString();
         String contactNameMain = UUID.randomUUID().toString();
         String contactName3 = UUID.randomUUID().toString();
-        Long minId = 1L;
-        Long maxID = 3L;
 
-        Contact contact1 = createContact(1L, contactName1);
+        Contact contact1 = createContact(contactName1);
         contactRepository.save(contact1);
 
-        Contact contactMain = createContact(2L, contactNameMain);
+        Contact contactMain = createContact(contactNameMain);
         contactRepository.save(contactMain);
 
-        Contact contact3 = createContact(3L, contactName3);
+        Contact contact3 = createContact(contactName3);
         contactRepository.save(contact3);
 
-        Contact foundContact = contactRepositoryCustom.findByNameAndIdBetween(contactNameMain, minId, maxID)
-                .getFirst();
+        Contact foundContact = contactRepositoryCustom.findByName(contactNameMain).getFirst();
 
         Assertions.assertNotNull(foundContact);
         Assertions.assertEquals(contactMain.getId(), foundContact.getId());
@@ -101,10 +96,12 @@ public class ContactTest {
     }
 
     @Test
+    @Transactional
+    @Rollback
     public void testCriteriaAPIFindByCountry() {
         String contactName = UUID.randomUUID().toString();
-        Contact contact = createContact(1L, contactName);
-        Country countryRussia = createCountryAndSave(1L, "Russia", "+7", countryRepository);
+        Contact contact = createContact(contactName);
+        Country countryRussia = createCountryAndSave("Russia", "+7", countryRepository);
         contact.setCountry(countryRussia);
         contactRepository.save(contact);
 
