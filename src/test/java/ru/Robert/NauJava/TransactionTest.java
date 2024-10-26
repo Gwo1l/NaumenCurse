@@ -34,8 +34,8 @@ public class TransactionTest {
     }
 
     @Test
-    @Transactional
-    @Rollback
+    //@Transactional
+    //@Rollback
     public void testDeleteNote() {
         String contactName = UUID.randomUUID().toString();
         Contact contact = createContact(contactName);
