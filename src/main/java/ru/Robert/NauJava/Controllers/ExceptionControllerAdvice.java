@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class ExceptionControllerAdvice {
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<String> exception(Exception e, Model model) {
+    public String exception(Exception e, Model model) {
         model.addAttribute("exceptionMessage", e.getMessage());
 
-        return ResponseEntity.ok("Goodbye world!");
+        return "exception";
     }
 }

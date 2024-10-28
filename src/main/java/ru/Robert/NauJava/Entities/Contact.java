@@ -1,13 +1,22 @@
 package ru.Robert.NauJava.Entities;
 
 import jakarta.persistence.*;
+import ru.Robert.NauJava.Security.Role;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
 @Table(name = "contacts")
 public class Contact {
+    public Contact(String name, String password, Role role) {
+        this.name = name;
+        this.password = password;
+        this.role = role;
+    }
+    public Contact() {};
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -24,6 +33,24 @@ public class Contact {
     @ManyToOne
     @JoinColumn(name = "address_id")
     private Address address;
+    private String password;
+    private Role role;
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     public Long getId() {
         return id;
