@@ -1,10 +1,8 @@
 package ru.Robert.NauJava.Entities;
 
 import jakarta.persistence.*;
-import ru.Robert.NauJava.Security.Role;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity

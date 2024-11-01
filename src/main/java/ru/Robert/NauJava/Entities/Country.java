@@ -29,6 +29,8 @@ public class Country {
     @OneToMany(mappedBy = "country")
     @JsonIgnore
     private Set<Contact> contacts = new HashSet<>();
+    @ManyToMany(mappedBy = "countryList")
+    private Set<Report> reports = new HashSet<>();
 
     @OneToMany(mappedBy = "country")
     private Set<Address> addresses = new HashSet<>();
@@ -39,6 +41,14 @@ public class Country {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Set<Report> getReports() {
+        return reports;
+    }
+
+    public void setReports(Set<Report> reports) {
+        this.reports = reports;
     }
 
     public String getName() {

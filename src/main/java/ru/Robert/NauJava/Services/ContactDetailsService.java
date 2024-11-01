@@ -1,4 +1,4 @@
-package ru.Robert.NauJava.Security;
+package ru.Robert.NauJava.Services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -11,10 +11,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import ru.Robert.NauJava.CRUDRepositories.ContactRepository;
 import ru.Robert.NauJava.Entities.Contact;
-import ru.Robert.NauJava.Security.Role;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Component
 public class ContactDetailsService implements UserDetailsService {

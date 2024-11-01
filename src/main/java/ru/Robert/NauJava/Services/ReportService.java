@@ -12,17 +12,13 @@ import ru.Robert.NauJava.Entities.Report;
 
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
 
 import static ru.Robert.NauJava.Entities.Report.Status.COMPLETED;
 import static ru.Robert.NauJava.Entities.Report.Status.ERROR;
 
 @Service
 public class ReportService {
-    private long contactCount;
-    private long contactCountTime;
-    private long countriesTime;
-    private long totalTime;
-    private List<Country> countryList = new ArrayList<>();
     @Autowired
     ReportRepository reportRepository;
     @Autowired
@@ -38,28 +34,40 @@ public class ReportService {
         return report.getContent();
     }
 
+    public Report getReport(Long reportId) {
+        Optional<Report> report = reportRepository.findById(reportId);
+        if (report.isEmpty()) {
+            throw new RuntimeException("Report not found");
+        }
+
+        return report.orElse(null);
+    }
+
     @Async
-    @Bean
-    public void generateReport() {
-        CompletableFuture<String> future = CompletableFuture.supplyAsync(() -> {
+    public CompletableFuture<Report> generateReport() {
+        CompletableFuture<Report> future = CompletableFuture.supplyAsync(() -> {
             Report report = new Report();
-            reportRepository.save(report);
 
             long startTotalTime = System.currentTimeMillis();
 
             Thread contactCountThread = new Thread(() -> {
                 long startCountTime = System.currentTimeMillis();
-                contactCount = contactRepository.count();
+                report.setContactCount(contactRepository.count());
                 long endCountTime = System.currentTimeMillis();
 
-                contactCountTime = endCountTime - startCountTime;
+                report.setContactCountTime(endCountTime - startCountTime);
             });
 
             Thread countriesThread = new Thread(() -> {
                 long startCountriesTime = System.currentTimeMillis();
-                countryList = (List<Country>) countryRepository.findAll();
+                //report.setCountryList(countryRepository.findAll());
+                Set<Country> countries = new HashSet<>();
+                for (Country country : countryRepository.findAll()) {
+                    countries.add(country);
+                }
+                report.setCountryList(countries);
                 long endCountriesTime = System.currentTimeMillis();
-                countriesTime = endCountriesTime - startCountriesTime;
+                report.setCountriesTime(endCountriesTime - startCountriesTime);
             });
 
             contactCountThread.start();
@@ -74,17 +82,21 @@ public class ReportService {
             }
 
             long endTotalTime = System.currentTimeMillis();
-            totalTime = endTotalTime - startTotalTime;
+            report.setTotalTime(endTotalTime - startTotalTime);
 
+            return report;
+        });
+        future.thenAccept(report -> {
             report.setStatus(COMPLETED);
             reportRepository.save(report);
 
-            String reportContent = createStringReportContent(contactCount, contactCountTime, countryList,
-                    countriesTime, totalTime);
-            report.setContent(reportContent);
-            return reportContent;
+            /*String reportContent = createStringReportContent(report.getContactCount(),
+                    report.getContactCountTime(), report.getCountryList(),
+                    report.getCountriesTime(), report.getTotalTime());
+            report.setContent(reportContent);*/
+
         });
-        future.thenAccept(result -> System.out.println(result));
+        return future;
     }
 
     private String createStringReportContent(long contactCount, long contactCountTime,
@@ -103,8 +115,4 @@ public class ReportService {
         return stringBuilder.toString();
     }
 
-    private String createHtmlReport(String reportContent) {
-        String htmlTemplate = "<html><body><h1>Отчет</h1><p>%s</p></body></html>";
-        return String.format(htmlTemplate, reportContent);
-    }
 }
