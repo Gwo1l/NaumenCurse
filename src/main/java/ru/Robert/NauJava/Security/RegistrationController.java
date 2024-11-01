@@ -22,16 +22,13 @@ public class RegistrationController {
     @PostMapping("/registration")
     public String addContact(Contact contact, Model model)
     {
-        try
-        {
-            contactService.addContact(contact);
+        if (contactService.addContact(contact))
             return "redirect:/login";
-        }
-        catch (Exception ex)
-        {
+        else {
             model.addAttribute("message", "User exists");
             return "registration";
         }
+
     }
 
     @GetMapping("/login")

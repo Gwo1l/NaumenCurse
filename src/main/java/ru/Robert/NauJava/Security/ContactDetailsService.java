@@ -3,6 +3,7 @@ package ru.Robert.NauJava.Security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -21,23 +22,22 @@ public class ContactDetailsService implements UserDetailsService {
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public ContactDetailsService(ContactRepository contactRepository, PasswordEncoder passwordEncoder,
-                                 List<Contact> contacts) {
+    public ContactDetailsService(ContactRepository contactRepository, PasswordEncoder passwordEncoder) {
         this.contactRepository = contactRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
 
 
-    public void addContact(Contact contact) throws Exception {
+    public boolean addContact(Contact contact) {
         try {
             Contact contactFromDb = contactRepository.findByName(contact.getName()).getFirst();
-            throw new IllegalArgumentException("user exists");
+            return false;
         }
         catch (NoSuchElementException e) {
-            //contact.setRole(contact.getRole());
             contact.setPassword(passwordEncoder.encode(contact.getPassword()));
             contactRepository.save(contact);
+            return true;
         }
     }
 
@@ -45,9 +45,7 @@ public class ContactDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         try {
             Contact appContact = contactRepository.findByName(username).getFirst();
-            org.springframework.security.core.userdetails.User user = new
-                    org.springframework.security.core.userdetails.User(
-                    appContact.getName(), appContact.getPassword(), mapRoles(appContact));
+            User user = new User(appContact.getName(), appContact.getPassword(), mapRoles(appContact));
             return user;
         }
         catch (Exception e) {

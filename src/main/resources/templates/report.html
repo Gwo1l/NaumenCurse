@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Отчет</title>
+</head>
+<body>
+<h1>Отчет</h1>
+<p>Количество контактов: [[${contactCount}]]</p>
+<ul>
+    <li th:each="country : ${countries}">[[${country}]]</li>
+</ul>
+</body>
+</html>
